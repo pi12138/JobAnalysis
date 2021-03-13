@@ -9,3 +9,6 @@ local_settings.py
 *.log
 
 data/**
+
+.ipynb_checkpoints
+*.ipynb
