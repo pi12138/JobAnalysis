@@ -20,9 +20,9 @@ class Company(models.Model):
     """
     name = models.CharField(max_length=255, null=True, blank=True, verbose_name='公司名称')
     introduction = models.TextField(null=True, verbose_name='公司简介', blank=True)
-    company_size = models.IntegerField(choices=COMPANY_SIZE_CHOICES, default=CompanySize.RANGE_0_TO_20, verbose_name='公司规模')
+    company_size = models.IntegerField(choices=COMPANY_SIZE_CHOICES, verbose_name='公司规模', null=True)
     Legal_person = models.CharField(max_length=255, null=True, verbose_name='法人', blank=True)
-    date_of_establishment = models.DateField(verbose_name='成立时间')
+    date_of_establishment = models.DateField(verbose_name='成立时间', null=True)
     business_type = models.CharField(max_length=255, verbose_name='企业类型', null=True, blank=True)
     business_scope = models.TextField(verbose_name='经营范围', null=True, blank=True)
     address = models.CharField(max_length=255, verbose_name='地址', null=True, blank=True)
