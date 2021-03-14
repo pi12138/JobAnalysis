@@ -10,6 +10,7 @@ usage:
     python manage.py runscript import_label
 """
 
+
 def run():
     base_path = './data/'
     filename_list = os.listdir(base_path)

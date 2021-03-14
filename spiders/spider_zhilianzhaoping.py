@@ -4,6 +4,8 @@ import logging
 import time
 import os
 
+from company.constants import JOB_DIRECTION_TO_VERBOSE_NAME
+
 logging.basicConfig(
     level=logging.INFO,
     filename='output.log',
@@ -93,7 +95,7 @@ class ZhiLianSpider:
 
         with open(f'./data/智联_{self.keyword}.json', 'w') as f:
             f.write(json.dumps(self.job_list, ensure_ascii=False))
-        logger.info(f'save success. len: {len(self.job_list)}')
+        logger.info(f'{str()} save success. len: {len(self.job_list)}')
 
     def __str__(self):
         return '{} spider'.format(self.keyword)
@@ -103,12 +105,22 @@ class ZhiLianSpider:
 
 
 if __name__ == "__main__":
-    # logger.info('xxx')
-    java_spider = ZhiLianSpider()
+    logger.info('xxx')
+    java_spider = ZhiLianSpider(keyword='Java开发')
     python_spider = ZhiLianSpider(keyword='Python开发')
     fe_spider = ZhiLianSpider(keyword='前端开发')
     php_spider = ZhiLianSpider(keyword='PHP开发')
-    all_spider = [java_spider, python_spider, fe_spider, php_spider]
+    product_manager_spider = ZhiLianSpider(keyword='产品经理')
+    software_test_spider = ZhiLianSpider(keyword='软件测试')
+    software_implementation_spider = ZhiLianSpider(keyword='软件实施')
+    ui_design_spider = ZhiLianSpider(keyword='UI设计')
+    internet_marketing_spider = ZhiLianSpider(keyword='互联网营销')
+    algorithm_spider = ZhiLianSpider(keyword='算法工程师')
+    all_spider = [
+        java_spider, python_spider, fe_spider, php_spider, product_manager_spider,
+        software_test_spider, software_implementation_spider, ui_design_spider,
+        internet_marketing_spider, algorithm_spider,
+    ]
 
     downloaded_file_set = set()
     for filename in os.listdir('./data/'):
@@ -117,6 +129,7 @@ if __name__ == "__main__":
         if len(kw) == 1:
             continue
         kw = kw[1]
+        kw = kw.lower()
         downloaded_file_set.add(kw)
 
     dont_run_spider = list()

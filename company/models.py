@@ -10,6 +10,7 @@ from company.constants import (
     RecruitmentStatus,
     LABEL_TYPE_CHOICES,
     LabelType,
+    JOB_DIRECTION_CHOICES,
 )
 
 
@@ -43,6 +44,7 @@ class JobPosition(models.Model):
     skill_label = models.ManyToManyField(to='Label', db_constraint=False, verbose_name='skill_label')
     job_description = models.TextField(null=True, blank=True, verbose_name="职位描述")
     company = models.ForeignKey(to=Company, db_constraint=False, on_delete=models.DO_NOTHING, verbose_name='公司')
+    job_direction = models.IntegerField(verbose_name='岗位方向', choices=JOB_DIRECTION_CHOICES, null=True)
 
 
 class Label(models.Model):
