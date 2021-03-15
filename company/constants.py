@@ -34,6 +34,9 @@ EDUCATION_CHOICES = (
 )
 
 
+EDUCATION_VERBOSE_NAME_TO_VALUE = {i[1]: i[0] for i in EDUCATION_CHOICES}
+
+
 class RecruitmentStatus:
     HIRING = 1
     STOP_HIRING = 2
@@ -119,3 +122,6 @@ JOB_DIRECTION_CHOICES = (
     (JobDirection.OPERATIONS_ENGINEER, '运维工程师'),
     (JobDirection.GOLANG, 'golang开发'),
 )
+
+
+VERBOSE_NAME_TO_JOB_DIRECTION = {value: key for key, value in JOB_DIRECTION_TO_VERBOSE_NAME.items()}

@@ -38,13 +38,19 @@ class JobPosition(models.Model):
     recruitment_status = models.IntegerField(choices=RECRUITMENT_STATUS_CHOICES, default=RecruitmentStatus.HIRING, verbose_name='招聘状态')
     welfare_label = models.ManyToManyField(to='Label', db_constraint=False, verbose_name='福利标签', related_name='welfare_label')
     salary = models.CharField(max_length=255, null=True, blank=True, verbose_name='薪水')
-    work_experience = models.IntegerField(null=True, blank=True, verbose_name='工作经验')
+    work_experience = models.CharField(max_length=255, null=True, blank=True, verbose_name='工作经验')
     education = models.IntegerField(choices=EDUCATION_CHOICES, default=Education.OTHER, verbose_name='教育')
     recruiter = models.CharField(max_length=255, null=True, blank=True, verbose_name='招聘者')
     skill_label = models.ManyToManyField(to='Label', db_constraint=False, verbose_name='skill_label')
     job_description = models.TextField(null=True, blank=True, verbose_name="职位描述")
     company = models.ForeignKey(to=Company, db_constraint=False, on_delete=models.DO_NOTHING, verbose_name='公司')
     job_direction = models.IntegerField(verbose_name='岗位方向', choices=JOB_DIRECTION_CHOICES, null=True)
+
+    def __str__(self):
+        return self.job_uuid()
+
+    def job_uuid(self):
+        return '{}-{}'.format(self.company.name, self.name)
 
 
 class Label(models.Model):
