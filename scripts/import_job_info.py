@@ -66,8 +66,6 @@ def run():
     for job_direction, job_list in job_direction_to_job_list.items():
         for job in job_list:
             job_uuid = '{}-{}'.format(job['company_info'], job['name'])
-            if job_uuid in existed_job_uuid_set:
-                continue
 
             skill_label = job['skill_label']
             welfare_label = job['welfare_label']
@@ -83,6 +81,9 @@ def run():
                 if welfare_instance:
                     welfare_label_instance_list.append(welfare_instance)
                     job_uuid_to_welfare_labels[job_uuid].append(welfare_instance)
+
+            if job_uuid in existed_job_uuid_set:
+                continue
 
             company_name = job['company_info']
             company_instance = company_name_to_company.get(company_name)
