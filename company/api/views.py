@@ -13,7 +13,7 @@ from company.api.paginations import JobPositionPagination
 class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
     queryset = JobPosition.objects.all()
     pagination_class = JobPositionPagination
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, ]
     filterset_class = JobPositionFilterSet
 
     def get_serializer_class(self):

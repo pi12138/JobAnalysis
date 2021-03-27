@@ -1,5 +1,6 @@
 from rest_framework.filters import BaseFilterBackend
 from django_filters import rest_framework as filters
+from rest_framework.filters import BaseFilterBackend
 
 from company.models import JobPosition
 
@@ -14,7 +15,8 @@ from company.models import JobPosition
 
 
 class JobPositionFilterSet(filters.FilterSet):
-    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
+    job_name = filters.CharFilter(field_name='name', lookup_expr='icontains')
+    company_name = filters.CharFilter(field_name='company__name', lookup_expr='icontains')
 
     class Meta:
         model = JobPosition

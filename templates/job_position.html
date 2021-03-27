@@ -9,11 +9,11 @@
         <form class="row">
             <div class="form-group col-lg-3">
                 <label for="text1" class="sr-only"></label>
-                <input type="text" class="form-control" id="text1" placeholder="岗位名称" value="">
+                <input type="text" class="form-control" id="text1" placeholder="岗位名称" v-model="jobName">
             </div>
             <div class="form-group col-lg-3">
                 <label for="text2" class="sr-only"></label>
-                <input type="text" class="form-control" id="text2" placeholder="公司名称">
+                <input type="text" class="form-control" id="text2" placeholder="公司名称" v-model="companyName">
             </div>
             <div class="form-group col-lg-3">
                 <label for="text3" class="sr-only"></label>
@@ -22,7 +22,7 @@
             <div class="form-group col-lg-3">
                 <div class="row">
                     <div class="col-lg-4"></div>
-                    <button type="submit" class="btn btn-primary col-lg-4"> 搜 索</button>
+                    <button type="submit" class="btn btn-primary col-lg-4" @click.prevent="searchJob" > 搜 索</button>
 
                 </div>
             </div>

@@ -23,17 +23,15 @@ let jobApp = new Vue({
                     {'name': '福利标签3'},
                 ]
             }
-        ]
+        ],
+        jobName: '',
+        companyName: '',
+        jobDirection: '',
     },
     methods: {
-        getJobList: function () {
-            let url = '/api/job-position/';
-            axios.get(url).then((response) => {
-                console.log('into then');
-                let result = response.data;
-
-                this.items = [];
-                for (let item of result.results) {
+        setItems: function (response_data){
+             this.items = [];
+                for (let item of response_data) {
                     this.items.push({
                         'jobName': item.name,
                         'company': item['company'],
@@ -45,6 +43,14 @@ let jobApp = new Vue({
                         'welfareLabel': item['welfare_label']
                     });
                 }
+        },
+
+        getJobList: function () { // 获取职位列表
+            let url = '/api/job-position/';
+            axios.get(url).then((response) => {
+                console.log('into then');
+                let result = response.data;
+                this.setItems(result.results)
 
             }).catch((error) => {
                 console.log('into catch')
@@ -52,12 +58,35 @@ let jobApp = new Vue({
             })
         },
 
-        getCompanyName: function (company){
+        getCompanyName: function (company){ // 获取公司名称
             let name = '';
             if (company){
-                name = company.name
+                name = company.name;
             }
             return name
+        },
+
+        searchJob: function (){ // 搜索岗位
+            let queryParams = {}
+            if (this.jobName){
+                queryParams['job_name'] = this.jobName;
+            }
+            if (this.companyName){
+                queryParams['company_name'] = this.companyName;
+            }
+
+            let url = '/api/job-position/';
+
+            axios.get(url, {
+                'params': queryParams
+            }).then((response) => {
+                console.log('into then');
+                let result = response.data;
+                this.setItems(result.results)
+
+            }).catch((error) => {
+
+            })
         }
     },
 
