@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}工作岗位{% endblock %}
+
+{% block content %}
+    {% verbatim %}
+    <div id="job-app">
+        <div class="spacing-20"></div>
+        <form class="row">
+            <div class="form-group col-lg-3">
+                <label for="text1" class="sr-only"></label>
+                <input type="text" class="form-control" id="text1" placeholder="岗位名称" value="">
+            </div>
+            <div class="form-group col-lg-3">
+                <label for="text2" class="sr-only"></label>
+                <input type="text" class="form-control" id="text2" placeholder="公司名称">
+            </div>
+            <div class="form-group col-lg-3">
+                <label for="text3" class="sr-only"></label>
+                <input type="text" class="form-control" id="text3" placeholder="岗位方向">
+            </div>
+            <div class="form-group col-lg-3">
+                <div class="row">
+                    <div class="col-lg-4"></div>
+                    <button type="submit" class="btn btn-primary col-lg-4"> 搜 索</button>
+
+                </div>
+            </div>
+        </form>
+        <div class="spacing-50"></div>
+
+        <ul class="list-group">
+            <li class="list-group-item" aria-current="true" v-for="(item, index) in items" :key="index">
+                <div class="row" >
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-4 text-left">{{ item.jobName }}</div>
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-4 text-center">{{ getCompanyName(item.company) }}</div>
+                </div>
+                <div class="spacing-5"></div>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-2 text-left">{{ item.salary }}</div>
+                    <div class="col-lg-2 text-left">{{ item.location }}</div>
+                    <div class="col-lg-2 text-left">{{ item.workExperience }}</div>
+                    <div class="col-lg-2 text-left">{{ item.education }}</div>
+                    <div class="col-lg-2"></div>
+                    <div class="col-lg-1"></div>
+                </div>
+                <div class="spacing-5"></div>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-6">
+                        <span class="badge badge-primary" v-for="(skillLabel, index2) in item.skillLabel" :key="index2">{{ skillLabel.name }}</span>
+                    </div>
+                    <div class="col-lg-5"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-1"></div>
+                    <div class="col-lg-6">
+                        <span class="badge badge-success" v-for="(welfareLabel, index3) in item.welfareLabel" :key="index3">{{ welfareLabel.name }}</span>
+                    </div>
+                    <div class="col-lg-5"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    {% endverbatim %}
+{% endblock %}
+
+
+{% block other_script %}
+    <script src="/static/js/job.js" type="text/javascript"></script>
+{% endblock %}
