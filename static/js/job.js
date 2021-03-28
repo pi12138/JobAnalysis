@@ -27,6 +27,11 @@ let jobApp = new Vue({
         jobName: '',
         companyName: '',
         jobDirection: '',
+        jobCount: 0,
+        nextPage: '',
+        previousPage: '',
+        currentPageNumber: 1,
+        jumpPageNumber: 1,
     },
     methods: {
         setItems: function (response_data){
@@ -44,18 +49,42 @@ let jobApp = new Vue({
                     });
                 }
         },
+        setJobCount: function (count){
+            this.jobCount = 0;
+            this.jobCount = count;
+        },
+        setPreviousAndNextPage: function (previousPage, nextPage){
+            this.previousPage = previousPage;
+            this.nextPage = nextPage;
+        },
+        setPageElement: function (result){
+                this.setItems(result.results);
+                this.setJobCount(result.count);
+                this.setPreviousAndNextPage(result.previous, result.next);
+        },
 
-        getJobList: function () { // 获取职位列表
-            let url = '/api/job-position/';
+        getJobList: function (pageUrl) { // 获取职位列表
+            let url = pageUrl;
+            if (!url){
+                return
+            }
+            if (url.indexOf('page') === -1){
+                url = url + '?page=1';
+                console.log(url)
+            }
+
             axios.get(url).then((response) => {
                 console.log('into then');
                 let result = response.data;
-                this.setItems(result.results)
+                this.setPageElement(result);
+                let splitArray = url.split('=')
+                this.currentPageNumber = splitArray[splitArray.length - 1]
 
             }).catch((error) => {
                 console.log('into catch')
                 console.log(error)
             })
+
         },
 
         getCompanyName: function (company){ // 获取公司名称
@@ -82,15 +111,25 @@ let jobApp = new Vue({
             }).then((response) => {
                 console.log('into then');
                 let result = response.data;
-                this.setItems(result.results)
+                this.setPageElement(result)
 
             }).catch((error) => {
 
             })
+        },
+    },
+
+    computed: {
+        countStr: function (){
+            return `一共有${this.jobCount}条数据`
+        },
+        jumpPageUrl: function (){
+            return `/api/job-position/?page=${this.jumpPageNumber}`
         }
     },
 
     beforeMount: function (){
-        this.getJobList()
+        let pageUrl = `/api/job-position/?page=${this.currentPageNumber}`
+        this.getJobList(pageUrl)
     }
 })

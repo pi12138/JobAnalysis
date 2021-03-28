@@ -22,7 +22,7 @@
             <div class="form-group col-lg-3">
                 <div class="row">
                     <div class="col-lg-4"></div>
-                    <button type="submit" class="btn btn-primary col-lg-4" @click.prevent="searchJob" > 搜 索</button>
+                    <button type="submit" class="btn btn-primary col-lg-4" @click.prevent="searchJob"> 搜 索</button>
 
                 </div>
             </div>
@@ -31,7 +31,7 @@
 
         <ul class="list-group">
             <li class="list-group-item" aria-current="true" v-for="(item, index) in items" :key="index">
-                <div class="row" >
+                <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-4 text-left">{{ item.jobName }}</div>
                     <div class="col-lg-1"></div>
@@ -59,12 +59,42 @@
                 <div class="row">
                     <div class="col-lg-1"></div>
                     <div class="col-lg-6">
-                        <span class="badge badge-success" v-for="(welfareLabel, index3) in item.welfareLabel" :key="index3">{{ welfareLabel.name }}</span>
+                        <span class="badge badge-success" v-for="(welfareLabel, index3) in item.welfareLabel"
+                              :key="index3">{{ welfareLabel.name }}</span>
                     </div>
                     <div class="col-lg-5"></div>
                 </div>
             </li>
         </ul>
+
+
+        <div class="spacing-50"></div>
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item"><a class="page-link" href="#" @click.prevent="getJobList(previousPage)">前一页</a></li>
+                        <li class="page-item"><a class="page-link" href="#" v-text="currentPageNumber"></a></li>
+                        <li class="page-item"><a class="page-link" href="#" @click.prevent="getJobList(nextPage)">后一页</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-4">
+                <form class="form-row">
+                    <div class="col-lg-5">
+                        <input type="text" class="form-control-plaintext" v-model="countStr" readonly>
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="text" class="form-control" v-model="jumpPageNumber">
+                    </div>
+                    <div class="col-lg-4">
+                        <button type="submit" class="btn btn-primary" @click.prevent="getJobList(jumpPageUrl)"> Go
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     {% endverbatim %}
 {% endblock %}
