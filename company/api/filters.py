@@ -20,4 +20,6 @@ class JobPositionFilterSet(filters.FilterSet):
 
     class Meta:
         model = JobPosition
-        fields = []
+        fields = [
+            'job_direction',
+        ]

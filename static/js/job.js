@@ -32,6 +32,10 @@ let jobApp = new Vue({
         previousPage: '',
         currentPageNumber: 1,
         jumpPageNumber: 1,
+        jobDirections: [
+            {'key': 1, 'value': '默认'}
+        ],
+        jobDirectionValue: 0
     },
     methods: {
         setItems: function (response_data){
@@ -87,6 +91,19 @@ let jobApp = new Vue({
 
         },
 
+        getJobDirection() {  // 获取职位方向列表
+            let url = '/api/job-position/job-direction/';
+
+            axios.get(url).then((response) =>　{
+                let result = response.data;
+                this.jobDirections = [];
+
+                for (let dire of result){
+                    this.jobDirections.push(dire);
+                }
+            })
+        },
+
         getCompanyName: function (company){ // 获取公司名称
             let name = '';
             if (company){
@@ -102,6 +119,9 @@ let jobApp = new Vue({
             }
             if (this.companyName){
                 queryParams['company_name'] = this.companyName;
+            }
+            if (this.jobDirections){
+                queryParams['job_direction'] = this.jobDirectionValue;
             }
 
             let url = '/api/job-position/';
@@ -130,6 +150,7 @@ let jobApp = new Vue({
 
     beforeMount: function (){
         let pageUrl = `/api/job-position/?page=${this.currentPageNumber}`
-        this.getJobList(pageUrl)
+        this.getJobList(pageUrl);
+        this.getJobDirection();
     }
 })

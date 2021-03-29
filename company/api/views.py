@@ -1,11 +1,13 @@
 from rest_framework import viewsets
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from django_filters.rest_framework import DjangoFilterBackend
 
 # from company.api.filters import JobPositionFilterBackend
 from company.api.filters import JobPositionFilterSet
 from company.models import JobPosition
+from company.constants import JOB_DIRECTION_TO_VERBOSE_NAME
 from company.api.serializers import JobPositionListSerializer
 from company.api.paginations import JobPositionPagination
 
@@ -34,3 +36,10 @@ class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+    @action(methods=['GET'], detail=False, url_path='job-direction')
+    def job_direction(self, request, *args, **kwargs):
+        result = list()
+        for key, value in JOB_DIRECTION_TO_VERBOSE_NAME.items():
+            result.append({'key': key, 'value': value})
+        return Response(result)

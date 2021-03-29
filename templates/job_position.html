@@ -16,8 +16,11 @@
                 <input type="text" class="form-control" id="text2" placeholder="公司名称" v-model="companyName">
             </div>
             <div class="form-group col-lg-3">
-                <label for="text3" class="sr-only"></label>
-                <input type="text" class="form-control" id="text3" placeholder="岗位方向">
+
+                <select class="custom-select" v-model="jobDirectionValue">
+                    <option value="0" selected>岗位方向</option>
+                    <option v-for="(dire, index) in jobDirections" :key="index" :value="dire.key">{{ dire.value }}</option>
+                </select>
             </div>
             <div class="form-group col-lg-3">
                 <div class="row">
@@ -74,9 +77,11 @@
             <div class="col-lg-4">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center">
-                        <li class="page-item"><a class="page-link" href="#" @click.prevent="getJobList(previousPage)">前一页</a></li>
+                        <li class="page-item"><a class="page-link" href="#" @click.prevent="getJobList(previousPage)">前一页</a>
+                        </li>
                         <li class="page-item"><a class="page-link" href="#" v-text="currentPageNumber"></a></li>
-                        <li class="page-item"><a class="page-link" href="#" @click.prevent="getJobList(nextPage)">后一页</a></li>
+                        <li class="page-item"><a class="page-link" href="#"
+                                                 @click.prevent="getJobList(nextPage)">后一页</a></li>
                     </ul>
                 </nav>
             </div>
