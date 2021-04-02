@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.0.2/dist/echarts.min.js"></script>
+</head>
+<body>
+
+
+</body>
+</html>
+
+{% extends 'base.html' %}
+
+{% block title %}工作岗位{% endblock %}
+
+{% block content %}
+    {% verbatim %}
+    <div id="analysis-app">
+        <div class="spacing-20"></div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <select class="custom-select" v-model="analysisType" @change.prevent="changeAnalysisType">
+                    <option v-for="(item, index) in analysisTypeList" :value="item.key" :key="index">{{ item.name }}</option>
+                </select>
+            </div>
+        </div>
+        <div class="spacing-20"></div>
+        <div class="row">
+            <div class="col-lg-2" v-for="(item, index) in checkboxList" :key="index">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" :id="'inlineCheckbox' + item.key" :value="item.key" v-model="elementList" @change.prevent="changeEchartsData">
+                    <label class="form-check-label" :for="'inlineCheckbox' + item.key">{{ item.name }}</label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1000px;height:800px;"></div>
+    <div class="spacing-20"></div>
+    {% endverbatim %}
+{% endblock %}
+
+
+{% block other_script %}
+    <script type="text/javascript" src="/static/js/analysis.js"></script>
+{% endblock %}

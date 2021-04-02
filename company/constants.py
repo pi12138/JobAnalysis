@@ -125,3 +125,9 @@ JOB_DIRECTION_CHOICES = (
 
 
 VERBOSE_NAME_TO_JOB_DIRECTION = {value: key for key, value in JOB_DIRECTION_TO_VERBOSE_NAME.items()}
+
+
+class AnalysisType:
+    JOB_DIRECTION = 1
+    SKILL_LABEL = 2
+    WELFARE_LABEL = 3

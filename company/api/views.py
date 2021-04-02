@@ -7,9 +7,10 @@ from django_filters.rest_framework import DjangoFilterBackend
 # from company.api.filters import JobPositionFilterBackend
 from company.api.filters import JobPositionFilterSet
 from company.models import JobPosition
-from company.constants import JOB_DIRECTION_TO_VERBOSE_NAME
+from company.constants import JOB_DIRECTION_TO_VERBOSE_NAME, AnalysisType
 from company.api.serializers import JobPositionListSerializer
 from company.api.paginations import JobPositionPagination
+from company.services import JobPositionService
 
 
 class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
@@ -41,5 +42,19 @@ class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
     def job_direction(self, request, *args, **kwargs):
         result = list()
         for key, value in JOB_DIRECTION_TO_VERBOSE_NAME.items():
-            result.append({'key': key, 'value': value})
+            result.append({'key': key, 'name': value})
+        return Response(result)
+
+    @action(methods=['GET'], detail=False, url_path='analysis')
+    def analysis(self, request, *args, **kwargs):
+        analysis_type = int(request.query_params.get('analysis_type'))
+        elements = request.query_params.get('elements')
+        if analysis_type == AnalysisType.JOB_DIRECTION:
+            result = JobPositionService.get_job_direction_analysis(elements)
+        elif analysis_type == AnalysisType.WELFARE_LABEL:
+            pass
+        elif analysis_type == AnalysisType.SKILL_LABEL:
+            pass
+        else:
+            pass
         return Response(result)
