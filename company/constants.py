@@ -81,14 +81,14 @@ class JobDirection:
 
 
 JOB_DIRECTION_TO_VERBOSE_NAME = {
-    JobDirection.JAVA: 'JAVA开发',
+    JobDirection.JAVA: 'Java开发',
     JobDirection.PYTHON: 'Python开发',
     JobDirection.PHP: 'PHP开发',
     JobDirection.FRONT_END: '前端开发',
     JobDirection.PRODUCT_MANAGER: '产品经理',
     JobDirection.SOFTWARE_TEST: '软件测试',
     JobDirection.SOFTWARE_IMPLEMENTATION: '软件实施',
-    JobDirection.UI_DESIGN: 'UI设计',
+    JobDirection.UI_DESIGN: 'ui设计',
     JobDirection.INTERNET_MARKETING: '互联网营销',
     JobDirection.ALGORITHM: '算法工程师',
     JobDirection.BLOCKCHAIN: '区块链',
@@ -103,14 +103,14 @@ JOB_DIRECTION_TO_VERBOSE_NAME = {
 
 
 JOB_DIRECTION_CHOICES = (
-    (JobDirection.JAVA, 'JAVA开发'),
+    (JobDirection.JAVA, 'Java开发'),
     (JobDirection.PYTHON, 'Python开发'),
     (JobDirection.PHP, 'PHP开发'),
     (JobDirection.FRONT_END, '前端开发'),
     (JobDirection.PRODUCT_MANAGER, '产品经理'),
     (JobDirection.SOFTWARE_TEST, '软件测试'),
     (JobDirection.SOFTWARE_IMPLEMENTATION, '软件实施'),
-    (JobDirection.UI_DESIGN, 'UI设计'),
+    (JobDirection.UI_DESIGN, 'ui设计'),
     (JobDirection.INTERNET_MARKETING, '互联网营销'),
     (JobDirection.ALGORITHM, '算法工程师'),
     (JobDirection.BLOCKCHAIN, '区块链'),
