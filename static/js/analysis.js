@@ -82,13 +82,9 @@ var option = {
         {
             name: '访问来源',
             type: 'pie',
-            radius: '55%',
+            radius: '80%',
             data: [
-                {value: 235, name: '视频广告'},
-                {value: 274, name: '联盟广告'},
-                {value: 310, name: '邮件营销'},
-                {value: 335, name: '直接访问'},
-                {value: 400, name: '搜索引擎'}
+                {value: 235, name: '这是一个饼图'},
             ]
         }
     ]
@@ -105,11 +101,11 @@ let analysisApp = new Vue({
         analysisTypeList: [
             {'key': 0, 'name': '请选择分析类别', 'url': ''},
             {'key': 1, 'name': '岗位方向', 'url': '/api/job-position/job-direction/'},
-            {'key': 2, 'name': '技能要求', 'url': ''},
-            {'key': 3, 'name': '福利标签', 'url': ''},
+            {'key': 2, 'name': '技能要求', 'url': '/api/job-position/skill-label/'},
+            {'key': 3, 'name': '福利标签', 'url': '/api/job-position/welfare-label/'},
         ],
         checkboxList: [
-            {'key': 1, 'name': 'JAVA开发'},
+            {'key': 1, 'name': '请先选择分析类别'},
         ],
         elementList: [],
 
@@ -164,7 +160,7 @@ let analysisApp = new Vue({
                         {
                             name: name,
                             type: 'pie',
-                            radius: '55%',
+                            radius: '80%',
                             data: res.data,
                         }
                     ]

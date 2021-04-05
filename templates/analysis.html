@@ -18,9 +18,11 @@
 
 {% block content %}
     {% verbatim %}
-    <div id="analysis-app">
-        <div class="spacing-20"></div>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:600px;"></div>
+    <div class="spacing-20"></div>
 
+    <div id="analysis-app">
         <div class="row">
             <div class="col-lg-3">
                 <select class="custom-select" v-model="analysisType" @change.prevent="changeAnalysisType">
@@ -39,11 +41,7 @@
 
         </div>
     </div>
-
-
-    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 1000px;height:800px;"></div>
-    <div class="spacing-20"></div>
+    
     {% endverbatim %}
 {% endblock %}
 

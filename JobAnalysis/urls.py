@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from company.views import job_page
+from company.views import job_page, index, echarts
 from .router import router
 
 urlpatterns = [
@@ -27,6 +27,8 @@ urlpatterns = [
 # page
 urlpatterns += [
     path('job/', job_page),
+    path('index/', index),
+    path('echarts/', echarts),
 ]
 
 # api

@@ -2,12 +2,13 @@ from rest_framework import viewsets
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework.decorators import action
+from rest_framework.exceptions import APIException
 from django_filters.rest_framework import DjangoFilterBackend
 
 # from company.api.filters import JobPositionFilterBackend
 from company.api.filters import JobPositionFilterSet
-from company.models import JobPosition
-from company.constants import JOB_DIRECTION_TO_VERBOSE_NAME, AnalysisType
+from company.models import JobPosition, Label
+from company.constants import JOB_DIRECTION_TO_VERBOSE_NAME, AnalysisType, LabelType
 from company.api.serializers import JobPositionListSerializer
 from company.api.paginations import JobPositionPagination
 from company.services import JobPositionService
@@ -45,16 +46,48 @@ class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
             result.append({'key': key, 'name': value})
         return Response(result)
 
+    @action(methods=['GET'], detail=False, url_path='welfare-label')
+    def welfare_label(self, request, *args, **kwargs):
+        result = list()
+        label_qs = Label.objects.filter(
+            label_type=LabelType.WELFARE
+        )
+        for label in label_qs:
+            result.append(
+                {
+                    'key': label.id,
+                    'name': label.name
+                }
+            )
+        return Response(result)
+
+    @action(methods=['GET'], detail=False, url_path='skill-label')
+    def skill_label(self, request, *args, **kwargs):
+        result = list()
+        label_qs = Label.objects.filter(
+            label_type=LabelType.SKILL
+        )
+        for label in label_qs:
+            result.append(
+                {
+                    'key': label.id,
+                    'name': label.name
+                }
+            )
+        return Response(result)
+
     @action(methods=['GET'], detail=False, url_path='analysis')
     def analysis(self, request, *args, **kwargs):
         analysis_type = int(request.query_params.get('analysis_type'))
         elements = request.query_params.get('elements')
+        if not elements:
+            return Response([])
         if analysis_type == AnalysisType.JOB_DIRECTION:
             result = JobPositionService.get_job_direction_analysis(elements)
         elif analysis_type == AnalysisType.WELFARE_LABEL:
-            pass
+            result = JobPositionService.get_welfare_label_analysis(elements)
         elif analysis_type == AnalysisType.SKILL_LABEL:
-            pass
+            result = JobPositionService.get_skill_label_analysis(elements)
         else:
-            pass
+            raise APIException(detail='错误的分析类别')
         return Response(result)
