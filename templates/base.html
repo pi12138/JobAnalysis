@@ -21,23 +21,26 @@
 <div class="container">
     <div class="spacing-20"></div>
 
-    {% verbatim %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarApp">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="/">EA</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item" v-for="(item, index) in navbarList" :key="index" :class="{active : active == item.name}" @click="selectNavbar(item.name)">
-                    <a class="nav-link" :href="item.url">{{ item.name }}</a>
+                <li class="nav-item {% if page == 1 %}active{% else %}{% endif %}">
+                    <a class="nav-link" href="/job/">职位列表</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav">
+                <li class="nav-item {% if page == 2 %}active{% else %}{% endif %}">
+                    <a class="nav-link" href="/echarts/">数据分析</a>
                 </li>
             </ul>
         </div>
 
     </nav>
-    {% endverbatim %}
 
     <div>
         {% block content %}
@@ -47,9 +50,8 @@
 
 </div>
 
-    {% block other_script %}
-        其他js文件放这
-    {% endblock %}
-<script src="/static/js/navbar.js" type="text/javascript"></script>
+{% block other_script %}
+    其他js文件放这
+{% endblock %}
 </body>
 </html>
