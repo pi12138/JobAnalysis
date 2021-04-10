@@ -90,4 +90,12 @@ class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
             result = JobPositionService.get_skill_label_analysis(elements)
         else:
             raise APIException(detail='错误的分析类别')
+
+        count = 0
+        for ele in result:
+            count += ele['value']
+
+        for ele in result:
+            ele['name'] = '{} ({:.2%})'.format(ele['name'], ele['value'] / count)
+
         return Response(result)
