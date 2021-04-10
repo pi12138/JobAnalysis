@@ -96,6 +96,6 @@ class JobPositionViewSet(viewsets.GenericViewSet, ListModelMixin):
             count += ele['value']
 
         for ele in result:
-            ele['name'] = '{} ({:.2%})'.format(ele['name'], ele['value'] / count)
+            ele['percent'] = '{:.2%}'.format( ele['value'] / count)
 
         return Response(result)

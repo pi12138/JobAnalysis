@@ -19,29 +19,38 @@
 {% block content %}
     {% verbatim %}
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="height:600px;"></div>
+    <div id="main" style="height:1000px;"></div>
     <div class="spacing-20"></div>
 
     <div id="analysis-app">
         <div class="row">
             <div class="col-lg-3">
                 <select class="custom-select" v-model="analysisType" @change.prevent="changeAnalysisType">
-                    <option v-for="(item, index) in analysisTypeList" :value="item.key" :key="index">{{ item.name }}</option>
+                    <option v-for="(item, index) in analysisTypeList" :value="item.key" :key="index">{{ item.name }}
+                    </option>
                 </select>
             </div>
+            <div class="col-lg-3">
+                <select class="custom-select" v-model="graphicType" @change.prevent="">
+                    <option v-for="(item, index) in graphicTypeList" :value="item.value" :key="index">{{ item.name }}
+                    </option>
+                </select>
+            </div>
+
         </div>
         <div class="spacing-20"></div>
         <div class="row">
             <div class="col-lg-2" v-for="(item, index) in checkboxList" :key="index">
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" :id="'inlineCheckbox' + item.key" :value="item.key" v-model="elementList" @change.prevent="changeEchartsData">
+                    <input class="form-check-input" type="checkbox" :id="'inlineCheckbox' + item.key" :value="item.key"
+                           v-model="elementList" @change.prevent="changeEchartsData">
                     <label class="form-check-label" :for="'inlineCheckbox' + item.key">{{ item.name }}</label>
                 </div>
             </div>
 
         </div>
     </div>
-    
+
     {% endverbatim %}
 {% endblock %}
 

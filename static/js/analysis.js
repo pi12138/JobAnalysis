@@ -108,6 +108,13 @@ let analysisApp = new Vue({
             {'key': 1, 'name': '请先选择分析类别'},
         ],
         elementList: [],
+        graphicTypeList: [
+            {'name': '请选择图形类型', value: 'pie'},
+            {'name': '饼图', value: 'pie'},
+            {'name': '柱状图', value: 'bar'},
+            {'name': '折线图', value: 'line'}
+        ],
+        graphicType: 'pie'
 
     },
     methods: {
@@ -135,11 +142,11 @@ let analysisApp = new Vue({
             })
         },
 
-        changeAnalysisType: function () {
+        changeAnalysisType: function () {  // 切换分析类型
             this.getCheckBoxList();
         },
 
-        changeEchartsData: function () {
+        changeEchartsData: function () {  // 更新分析图表数据
             let name = '';
             for (let item of this.analysisTypeList) {
                 if (item['key'] === this.analysisType) {
@@ -155,17 +162,86 @@ let analysisApp = new Vue({
 
             axios.get(url, {params}).then((res) => {
                 console.log(res.data);
-                let option = {
-                    series: [
-                        {
-                            name: name,
-                            type: 'pie',
-                            radius: '80%',
-                            data: res.data,
-                        }
-                    ]
+
+                if (this.graphicType === 'pie') {  // 饼图
+                    console.log('饼图饼图饼图饼图')
+                    let data = [];
+                    for (let item of res.data) {
+                        data.push(
+                            {
+                                'name': item['name'] + `(${item['percent']})`,
+                                'value': item['value']
+                            }
+                        )
+                    }
+
+                    let option = {
+                        series: [
+                            {
+                                name: name,
+                                type: 'pie',
+                                radius: '80%',
+                                data: data,
+                            }
+                        ]
+                    }
+                    myChart.setOption(option);
+
+                } else if (this.graphicType === 'bar') {  // 柱状图
+                    console.log('柱状图柱状图柱状图')
+
+                    let dataList = [];
+                    let titleList = [];
+
+                    for (item of res.data) {
+                        titleList.push(item['name']);
+                        dataList.push(item['value']);
+                    }
+
+                    console.log(dataList, titleList)
+                    let option = {
+                        xAxis: {
+                            data: titleList,
+                            axisLabel: {rotate: 45, interval: 'auto'}
+                        },
+                        yAxis: {},
+                        series: [
+                            {
+                                'name': name,
+                                'type': 'bar',
+                                'data': dataList,
+                            }
+                        ]
+                    }
+                    myChart.setOption(option);
+                } else if (this.graphicType === 'line') {  // 折线图
+                    console.log('折线图')
+
+                    let dataList = [];
+                    let titleList = [];
+
+                    for (item of res.data) {
+                        titleList.push(item['name']);
+                        dataList.push(item['value']);
+                    }
+
+                    console.log(dataList, titleList)
+                    let option = {
+                        xAxis: {
+                            data: titleList,
+                            axisLabel: {rotate: 45, interval: 'auto'}
+                        },
+                        yAxis: {},
+                        series: [
+                            {
+                                'name': name,
+                                'type': 'line',
+                                'data': dataList,
+                            }
+                        ]
+                    }
+                    myChart.setOption(option);
                 }
-                myChart.setOption(option);
 
             }).catch((err) => {
                 console.log('into catch', err)
