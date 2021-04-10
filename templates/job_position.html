@@ -19,7 +19,7 @@
 
                 <select class="custom-select" v-model="jobDirectionValue">
                     <option value="0" selected>岗位方向</option>
-                    <option v-for="(dire, index) in jobDirections" :key="index" :value="dire.key">{{ dire.value }}</option>
+                    <option v-for="(dire, index) in jobDirections" :key="index" :value="dire.key">{{ dire.name }}</option>
                 </select>
             </div>
             <div class="form-group col-lg-3">

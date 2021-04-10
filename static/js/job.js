@@ -120,7 +120,7 @@ let jobApp = new Vue({
             if (this.companyName){
                 queryParams['company_name'] = this.companyName;
             }
-            if (this.jobDirections){
+            if (parseInt(this.jobDirectionValue)){
                 queryParams['job_direction'] = this.jobDirectionValue;
             }
 
